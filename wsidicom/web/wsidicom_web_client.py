@@ -253,16 +253,16 @@ class WsiDicomWebClient:
                 for instance in self._client.search_for_instances(
                     study_uid,
                     series_uid,
-                    search_filters={SOP_CLASS_UID: sop_class_uid},
+                    # search_filters={SOP_CLASS_UID: sop_class_uid},
                 )
             )
         return (
             self._get_uids_from_response(instance)
             for instance in self._client.search_for_instances(
                 study_uid,
-                fields=["AvailableTransferSyntaxUID"],
+                fields=[], #"AvailableTransferSyntaxUID"],
                 search_filters={
-                    SOP_CLASS_UID: sop_class_uid,
+                    # SOP_CLASS_UID: sop_class_uid,
                     SERIES_INSTANCE_UID: series_uids,
                 },
             )

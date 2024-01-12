@@ -123,12 +123,12 @@ class WsiDicomWebSource(Source):
                 study_uid, series_uids
             )
         )
-        annotation_instances = (
-            client.get_instance(study_uid, series_uid, instance_uid)
-            for series_uid, instance_uid, _ in client.get_annotation_instances(
-                study_uid, series_uids
-            )
-        )
+        # annotation_instances = (
+        #     client.get_instance(study_uid, series_uid, instance_uid)
+        #     for series_uid, instance_uid, _ in client.get_annotation_instances(
+        #         study_uid, series_uids
+        #     )
+        # )
 
         with ConditionalThreadPoolExecutor(settings.open_web_theads) as pool:
             instances = pool.map(create_instance, instance_uids)
@@ -141,10 +141,10 @@ class WsiDicomWebSource(Source):
                     self._label_instances.append(instance)
                 elif instance.image_type == ImageType.OVERVIEW:
                     self._overview_instances.append(instance)
-            for annotation_instance in annotation_instances:
-                self._annotation_instances.append(
-                    AnnotationInstance.open_dataset(annotation_instance)
-                )
+            # for annotation_instance in annotation_instances:
+            #     self._annotation_instances.append(
+            #         AnnotationInstance.open_dataset(annotation_instance)
+            #     )
 
         try:
             self._base_dataset = next(
